@@ -53,6 +53,12 @@ module "blog_autoscaling" {
   security_groups     = [module.blog_sg.security_group_id]
   instance_type       = var.instance_type
   image_id            = data.aws_ami.app_ami.id
+
+  metadata_options = {
+    http_endpoint               = "enabled"
+    http_tokens                 = "required" # Force IMDSv2
+    http_put_response_hop_limit = 1
+  }
 }
 
 module "blog_alb" {
