@@ -16,6 +16,7 @@ data "aws_ami" "app_ami" {
 
 module "blog_vpc" {
   source = "terraform-aws-modules/vpc/aws"
+  version = "~> 6.0"
 
   name = "dev"
   cidr = "10.0.0.0/16"
@@ -32,7 +33,7 @@ module "blog_vpc" {
 
 module "blog_autoscaling" {
   source  = "terraform-aws-modules/autoscaling/aws"
-  version = "~> 8.0" # Or "~> 9.0" for the absolute latest
+  version = "~> 9.0"
 
   name = "blog"
 
