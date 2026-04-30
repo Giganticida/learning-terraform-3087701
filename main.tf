@@ -43,7 +43,12 @@ module "blog_autoscaling" {
   
   # UPDATED REFERENCE:
   # We access the 'blog_app' key from the target_groups output map
-  target_group_arns   = [module.blog_alb.target_groups["blog_app"].arn]
+  traffic_source_attachments = {
+    ex-alb = {
+      traffic_source_identifier = module.blog_alb.target_groups["blog_app"].arn
+      traffic_source_type       = "elbv2" # This specifies it's an Application Load Balancer
+    }
+  }
   
   security_groups     = [module.blog_sg.security_group_id]
   instance_type       = var.instance_type
